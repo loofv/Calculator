@@ -61,19 +61,54 @@ class MainActivity : AppCompatActivity() {
                     val splitValue = tvValue.split("-")
                     var one = splitValue[0]
                     val two = splitValue[1]
-
                     if (prefix.isNotEmpty()) {
                         one = prefix + one
                     }
-
+                    tvInput?.text = removeZeroAfterDot((one.toDouble() - two.toDouble()).toString())
                 }
 
-                tvInput?.text = (one.toDouble() - two.toDouble()).toString()
+                if (tvValue.contains("+")) {
+                    val splitValue = tvValue.split("+")
+                    var one = splitValue[0]
+                    val two = splitValue[1]
+                    if (prefix.isNotEmpty()) {
+                        one = prefix + one
+                    }
+                    tvInput?.text = removeZeroAfterDot((one.toDouble() + two.toDouble()).toString())
+                }
+
+                if (tvValue.contains("*")) {
+                    val splitValue = tvValue.split("*")
+                    var one = splitValue[0]
+                    val two = splitValue[1]
+                    if (prefix.isNotEmpty()) {
+                        one = prefix + one
+                    }
+                    tvInput?.text = removeZeroAfterDot((one.toDouble() * two.toDouble()).toString())
+                }
+
+                if (tvValue.contains("/")) {
+                    val splitValue = tvValue.split("/")
+                    var one = splitValue[0]
+                    val two = splitValue[1]
+                    if (prefix.isNotEmpty()) {
+                        one = prefix + one
+                    }
+                    tvInput?.text = removeZeroAfterDot((one.toDouble() / two.toDouble()).toString())
+                }
+
 
             } catch (e: Exception) {
                 println("you done fucked up! Error was: \n $e")
             }
         }
+    }
+
+    private fun removeZeroAfterDot(result: String) : String {
+        if (result.endsWith(".0")) {
+            return result.removeSuffix(".0")
+        }
+        return result
     }
 
     private fun isOperatorAdded(value : String) : Boolean {
